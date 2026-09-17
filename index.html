@@ -49,6 +49,44 @@
     /* Rodapé e Contactos */
     footer { background-color: var(--secondary); color: white; padding: 40px 20px; text-align: center; margin-top: 60px; }
     .contact-info p { margin: 8px 0; }
+
+    /* Modal / Caixa de Aviso */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .modal-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .modal-box h3 {
+      color: #d9534f;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+    .btn-close {
+      background-color: var(--secondary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn-close:hover {
+      background-color: #555;
+    }
   </style>
 </head>
 <body>
@@ -61,6 +99,134 @@
         <li><a href="#principal">Principal</a></li>
         <li><a href="#quem-somos">Quem Somos</a></li>
         <li><a href="#atividades">Atividades</a></li>
+        <li><a href="#inscricao">Inscrição</a></li>
+        <li><a href="#contactos">Contactos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Principal -->
+  <section id="principal">
+    <div class="hero">
+      <h1>Bem-vindo ao Bumblebee</h1>
+      <p>Um espaço seguro, educativo e acolhedor onde o seu filho cresce, aprende e brinca com toda a dedicação.</p>
+      <button onclick="mostrarAviso(event)" style="display:inline-block; background:var(--primary); padding:10px 20px; color:#333; font-weight:bold; border-radius:5px; border:none; cursor:pointer;">Fazer Inscrição</button>
+    </div>
+
+    <div class="gallery">
+      <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcS6JHm5J8uCpuc8ydXX6UUARZNVoTKAA71mJ5bu_VVWbqaGFGaI-3lXV4-yNTd77-qHdP2iFiBsW1p88-k" alt="Crianças a brincar na creche">
+      <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcR4IBVoptVTP8GhKLNDExqKhD16SRqV6-X9So7CWPmuaDQ-A6f_xcYt7vQdd4gjJ7QVmprLh2Y9GhYh31I" alt="Atividade de expressão plástica e pintura">
+      <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRZ3kBTbvo3EmJ-QUSjzxXt1LXC5cMtoiawHzjlMie4TvmXjIt5owYPlIEBB94ebItvsrg6MAJzj3Lo4j0" alt="Crianças em atividades de grupo">
+    </div>
+  </section>
+
+  <!-- Quem Somos -->
+  <section id="quem-somos">
+    <h2>Quem Somos</h2>
+    <p style="margin-top:15px;">O **Bumblebee** é uma creche e espaço de babysitting focado no desenvolvimento integral da criança. A nossa equipa é composta por profissionais qualificados e apaixonados pela educação infantil, proporcionando um ambiente familiar, seguro e estimulante para os mais pequenos.</p>
+  </section>
+
+  <!-- Atividades -->
+  <section id="atividades">
+    <h2>Nossas Atividades</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>🎨 Expressão Plástica</h3>
+        <p>Pintura, modelagem e trabalhos manuais para incentivar a criatividade e a coordenação motora.</p>
+      </div>
+      <div class="card">
+        <h3>🎵 Música e Movimento</h3>
+        <p>Aulas rítmicas e de expressão corporal que estimulam a sensibilidade auditiva e a motricidade.</p>
+      </div>
+      <div class="card">
+        <h3>📚 Hora do Conto</h3>
+        <p>Leitura de histórias para incentivar a imaginação e a aprendizagem da linguagem desde cedo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inscrição -->
+  <section id="inscricao">
+    <h2 style="text-align: center; margin-bottom: 20px;">Ficha de Inscrição</h2>
+    <form id="formInscricao" onsubmit="enviarInscricao(event)">
+      
+      <div class="form-group">
+        <label for="nomeAluno">Nome do Aluno *</label>
+        <input type="text" id="nomeAluno" required>
+      </div>
+
+      <div style="display: flex; gap: 15px;">
+        <div class="form-group" style="flex: 1;">
+          <label for="dataNasc">Data de Nascimento *</label>
+          <input type="date" id="dataNasc" required>
+        </div>
+        <div class="form-group" style="flex: 1;">
+          <label for="idade">Idade *</label>
+          <input type="number" id="idade" min="0" max="12" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="nif">NIF do Aluno *</label>
+        <input type="text" id="nif" pattern="[0-9]{9}" placeholder="9 dígitos" required>
+      </div>
+
+      <div class="form-group">
+        <label for="nomeEnc">Nome do Encarregado de Educação *</label>
+        <input type="text" id="nomeEnc" required>
+      </div>
+
+      <div class="form-group">
+        <label for="emailEnc">E-mail do Encarregado de Educação *</label>
+        <input type="email" id="emailEnc" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contactoEnc">Contacto do Encarregado de Educação *</label>
+        <input type="tel" id="contactoEnc" required>
+      </div>
+
+      <button type="submit" class="btn-submit">Submeter</button>
+    </form>
+  </section>
+
+  <!-- Contactos -->
+  <footer id="contactos">
+    <h2>Contactos</h2>
+    <div class="contact-info" style="margin-top: 15px;">
+      <p><b>Morada:</b> Av. Quinta da Atalaia, 6B, 2845-546 Amora</p>
+      <p><b>Telefone:</b> 962460939</p>
+      <p><b>E-mail:</b> bumblebee@babysitting.pt</p>
+    </div>
+    <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.7;">© 2026 Bumblebee. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Modal / Caixa de Aviso -->
+  <div id="modalAviso" class="modal-overlay">
+    <div class="modal-box">
+      <h3>INSCRIÇÕES ENCERRADAS</h3>
+      <p>De momento, não estamos a aceitar novas inscrições.</p>
+      <button class="btn-close" onclick="fecharAviso()">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    function mostrarAviso(e) {
+      if (e) e.preventDefault();
+      document.getElementById('modalAviso').style.display = 'flex';
+    }
+
+    function fecharAviso() {
+      document.getElementById('modalAviso').style.display = 'none';
+    }
+
+    function enviarInscricao(e) {
+      e.preventDefault();
+      mostrarAviso();
+    }
+  </script>
+</body>
+</html>        <li><a href="#atividades">Atividades</a></li>
         <li><a href="#inscricao">Inscrição</a></li>
         <li><a href="#contactos">Contactos</a></li>
       </ul>
